@@ -40,7 +40,6 @@ public class CakeFactoryAcceptanceTests {
 
 	@Test
 	public void testAddToBasket() throws IOException {
-		// first get page
 		HtmlPage landingPage = webClient.getPage(baseUrl);
 
 		HtmlForm form = landingPage.getFormByName("form-abcr");
@@ -57,7 +56,7 @@ public class CakeFactoryAcceptanceTests {
 	}
 
 	@Test
-	public void testDeleteFromBasket() throws IOException {
+	public void testDeleteFromBasketQuantityOne() throws IOException {
 
 		List<String> items = List.of("abcr", "ccr");
 
@@ -82,6 +81,33 @@ public class CakeFactoryAcceptanceTests {
 		assertThat(resultingPage.getElementById("form-abcr")).isNull();
 
 		assertThat(resultingPage.getElementById("form-ccr")).isNotNull();
+
+		DomElement basket = resultingPage.getElementById("navbarResponsive");
+		assertThat(basket.asText()).contains("Basket (1 Items)");
+	}
+
+	@Test
+	public void testDeleteFromBasketQuantityTwo() throws IOException {
+
+		for (int i = 0; i < 2; i++) {
+			HtmlPage landingPage = webClient.getPage(baseUrl);
+
+			HtmlForm addForm = landingPage.getFormByName("form-abcr");
+
+			HtmlInput submitButton = addForm.getInputByName("submit-button");
+
+			submitButton.click();
+		}
+
+		HtmlPage basketPage = webClient.getPage(baseUrl + "/basket");
+
+		HtmlForm form = basketPage.getFormByName("form-abcr");
+
+		HtmlInput deleteButton = form.getInputByName("submit-button");
+
+		HtmlPage resultingPage = deleteButton.click();
+
+		assertThat(resultingPage.getElementById("form-abcr")).isNotNull();
 
 		DomElement basket = resultingPage.getElementById("navbarResponsive");
 		assertThat(basket.asText()).contains("Basket (1 Items)");

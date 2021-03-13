@@ -62,4 +62,44 @@ public class BasketTests {
 						BasketEntry.builder().quantity(1).pastryEntity(chocolateCroissant).build()));
 	}
 
+	@Test
+	public void shouldReduceQuantityByOne() {
+		PastryEntity butterCroissant = PastryEntity.builder().code("abcr").name("All Butter Croissant")
+				.price(new BigDecimal("0.75")).build();
+
+		PastryEntity chocolateCroissant = PastryEntity.builder().code("ccr").name("Chocolate Croissant")
+				.price(new BigDecimal("0.95")).build();
+
+		basket.addItem(butterCroissant);
+		basket.addItem(butterCroissant);
+		basket.addItem(chocolateCroissant);
+
+		basket.removeItem(butterCroissant);
+
+		assertThat(basket.getSize()).isEqualTo(2);
+		assertThat(basket.getContents()).containsExactlyElementsOf(List.of(
+				BasketEntry.builder().quantity(1).pastryEntity(butterCroissant).build(),
+				BasketEntry.builder().quantity(1).pastryEntity(chocolateCroissant).build())
+		);
+	}
+
+	@Test
+	public void shouldRemoveLastOccurence() {
+		PastryEntity butterCroissant = PastryEntity.builder().code("abcr").name("All Butter Croissant")
+				.price(new BigDecimal("0.75")).build();
+
+		PastryEntity chocolateCroissant = PastryEntity.builder().code("ccr").name("Chocolate Croissant")
+				.price(new BigDecimal("0.95")).build();
+
+		basket.addItem(butterCroissant);
+		basket.addItem(chocolateCroissant);
+
+		basket.removeItem(chocolateCroissant);
+
+		assertThat(basket.getSize()).isEqualTo(1);
+		assertThat(basket.getContents()).containsExactlyElementsOf(List.of(
+				BasketEntry.builder().quantity(1).pastryEntity(butterCroissant).build())
+		);
+	}
+
 }

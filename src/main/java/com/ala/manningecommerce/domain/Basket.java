@@ -3,6 +3,7 @@ package com.ala.manningecommerce.domain;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import com.ala.manningecommerce.repository.entities.PastryEntity;
@@ -30,6 +31,7 @@ public class Basket {
 	}
 
 	public void removeItem(PastryEntity pastryEntity) {
-		contents.remove(pastryEntity);
+		Optional.ofNullable(contents.get(pastryEntity)).orElseThrow();
+		contents.compute(pastryEntity, (k, v) -> (v == 1) ? null : v - 1);
 	}
 }
