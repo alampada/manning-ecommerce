@@ -1,6 +1,7 @@
 package com.ala.manningecommerce;
 
 import java.io.IOException;
+import java.util.List;
 
 import com.ala.manningecommerce.support.PostgresqlServerExtension;
 import com.gargoylesoftware.htmlunit.WebClient;
@@ -8,7 +9,6 @@ import com.gargoylesoftware.htmlunit.html.DomElement;
 import com.gargoylesoftware.htmlunit.html.HtmlForm;
 import com.gargoylesoftware.htmlunit.html.HtmlInput;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
-import com.gargoylesoftware.htmlunit.html.SubmittableElement;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -23,7 +23,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @ExtendWith({SpringExtension.class, PostgresqlServerExtension.class})
 @ActiveProfiles("acceptance")
-public class AddToBasketAcceptanceTest {
+public class CakeFactoryAcceptanceTests {
 
 
 	@LocalServerPort
@@ -31,16 +31,15 @@ public class AddToBasketAcceptanceTest {
 
 	private String baseUrl;
 
-	private WebClient webClient;
+	private WebClient webClient = new WebClient();
 
 	@BeforeEach
 	private void setup() {
 		baseUrl = "http://localhost:" + serverPort;
-		webClient = new WebClient();
 	}
 
 	@Test
-	public void addToBasket() throws IOException {
+	public void testAddToBasket() throws IOException {
 		// first get page
 		HtmlPage landingPage = webClient.getPage(baseUrl);
 
@@ -55,6 +54,37 @@ public class AddToBasketAcceptanceTest {
 		HtmlPage resultingPage = submitButton.click();
 
 		assertThat(resultingPage.getElementById("navbarResponsive").asText()).contains("Basket (1 Items)");
+	}
+
+	@Test
+	public void testDeleteFromBasket() throws IOException {
+
+		List<String> items = List.of("abcr", "ccr");
+
+		for (String item : items) {
+			HtmlPage landingPage = webClient.getPage(baseUrl);
+
+			HtmlForm addForm = landingPage.getFormByName("form-" + item);
+
+			HtmlInput submitButton = addForm.getInputByName("submit-button");
+
+			submitButton.click();
+		}
+
+		HtmlPage basketPage = webClient.getPage(baseUrl + "/basket");
+
+		HtmlForm form = basketPage.getFormByName("form-abcr");
+
+		HtmlInput deleteButton = form.getInputByName("submit-button");
+
+		HtmlPage resultingPage = deleteButton.click();
+
+		assertThat(resultingPage.getElementById("form-abcr")).isNull();
+
+		assertThat(resultingPage.getElementById("form-ccr")).isNotNull();
+
+		DomElement basket = resultingPage.getElementById("navbarResponsive");
+		assertThat(basket.asText()).contains("Basket (1 Items)");
 	}
 }
 

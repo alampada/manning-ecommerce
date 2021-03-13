@@ -28,4 +28,8 @@ public class Basket {
 	public int getSize() {
 		return contents.values().stream().reduce(0, Integer::sum);
 	}
+
+	public void removeItem(PastryEntity pastryEntity) {
+		contents.remove(pastryEntity);
+	}
 }

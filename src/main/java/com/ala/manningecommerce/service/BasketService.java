@@ -36,4 +36,8 @@ public class BasketService {
 		return basket.getContents().stream().map(basketEntryMapper::map).collect(Collectors.toList());
 	}
 
+	public void removeItem(String code) {
+		PastryEntity pastryEntity = Optional.ofNullable(pastryEntityRepository.findByCode(code)).orElseThrow();
+		basket.removeItem(pastryEntity);
+	}
 }

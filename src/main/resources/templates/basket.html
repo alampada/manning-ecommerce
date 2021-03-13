@@ -28,7 +28,12 @@
                     <td>{{name}}</td>
                     <td>{{quantity}}</td>
                     <td>{{cost}}</td>
-                    <td>delete button</td>
+                    <td>
+                        <form action="/basket/delete" id="form-{{code}}" method="POST" name="form-{{code}}">
+                            <input id="input-code-{{code}}" name="code" type="hidden" value="{{code}}">
+                            <input class="btn btn-danger" name="submit-button" type="submit" value="Add to basket">
+                        </form>
+                    </td>
                 </tr>
                 {{/items}}
                 </tbody>

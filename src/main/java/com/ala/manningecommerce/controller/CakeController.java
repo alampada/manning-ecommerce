@@ -3,6 +3,7 @@ package com.ala.manningecommerce.controller;
 import java.util.List;
 
 import com.ala.manningecommerce.controller.resources.AddToBasketRequest;
+import com.ala.manningecommerce.controller.resources.DeleteFromBasketRequest;
 import com.ala.manningecommerce.controller.resources.Pastry;
 import com.ala.manningecommerce.service.BasketService;
 import com.ala.manningecommerce.service.CakeService;
@@ -46,5 +47,15 @@ public class CakeController {
 		model.addAttribute("basketSize", basketService.getBasketSize());
 		model.addAttribute("items", basketService.getContents());
 		return "basket";
+	}
+
+	@PostMapping("/basket/delete")
+	public String deleteFromBasket(DeleteFromBasketRequest deleteFromBasketRequest,
+			Model model) {
+		basketService.removeItem(deleteFromBasketRequest.getCode());
+		model.addAttribute("basketSize", basketService.getBasketSize());
+		model.addAttribute("items", basketService.getContents());
+		return "redirect:/basket";
+
 	}
 }
