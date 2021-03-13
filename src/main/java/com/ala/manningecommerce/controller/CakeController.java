@@ -2,6 +2,8 @@ package com.ala.manningecommerce.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import com.ala.manningecommerce.controller.resources.AddToBasketRequest;
 import com.ala.manningecommerce.controller.resources.DeleteFromBasketRequest;
 import com.ala.manningecommerce.controller.resources.Pastry;
@@ -13,6 +15,7 @@ import lombok.extern.log4j.Log4j2;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -60,7 +63,15 @@ public class CakeController {
 	}
 
 	@PostMapping("/order")
-	public String placeOrder(PlaceOrderRequest request, Model model) {
+	public String placeOrder(Model model,
+			@Valid PlaceOrderRequest request,
+			Errors errors) {
+		if (errors.hasErrors()) {
+			model.addAttribute("errors", errors.getAllErrors());
+			model.addAttribute("basketSize", basketService.getBasketSize());
+			model.addAttribute("items", basketService.getContents());
+			return "basket";
+		}
 		log.info("placing order: " + request);
 		basketService.clear();
 		model.addAttribute("basketSize", basketService.getBasketSize());

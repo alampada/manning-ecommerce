@@ -42,6 +42,11 @@
 
         <div id="delivery">
             <h2>Delivery Address</h2>
+            {{#errors}}
+            <div class="alert alert-danger" id="errors" role="alert">
+                {{field}}: {{defaultMessage}}
+            </div>
+            {{/errors}}
             <form action="/order" id="form-order" method="POST" name="form-order">
                 <div class="form-group">
                     <label for="formGroupAddressLine1">Address Line 1</label>

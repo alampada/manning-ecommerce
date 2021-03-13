@@ -86,7 +86,7 @@ class CakeControllerTests {
 		Map<String, String> inputs = Map.of(
 				"addressLineOne", "line one",
 				"addressLineTwo", "line two",
-				"postCode", "AA1 AA"
+				"postCode", "AA1 1AA"
 		);
 
 		inputs.forEach((k, v) -> {
