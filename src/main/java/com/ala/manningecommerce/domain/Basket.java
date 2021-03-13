@@ -34,4 +34,8 @@ public class Basket {
 		Optional.ofNullable(contents.get(pastryEntity)).orElseThrow();
 		contents.compute(pastryEntity, (k, v) -> (v == 1) ? null : v - 1);
 	}
+
+	public void clear() {
+		contents.clear();
+	}
 }

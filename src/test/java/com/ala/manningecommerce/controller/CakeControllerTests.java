@@ -3,12 +3,15 @@ package com.ala.manningecommerce.controller;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Map;
 
 import com.ala.manningecommerce.controller.resources.BasketEntryResource;
 import com.ala.manningecommerce.controller.resources.Pastry;
 import com.ala.manningecommerce.service.BasketService;
 import com.ala.manningecommerce.service.CakeService;
 import com.gargoylesoftware.htmlunit.WebClient;
+import com.gargoylesoftware.htmlunit.html.HtmlForm;
+import com.gargoylesoftware.htmlunit.html.HtmlInput;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import com.gargoylesoftware.htmlunit.html.HtmlTable;
 import org.junit.jupiter.api.Test;
@@ -72,6 +75,34 @@ class CakeControllerTests {
 		assertThat(table.getBodies().get(0).getRows().get(1).getCell(0).asText()).isEqualTo("Chocolate Croissant");
 		assertThat(table.getBodies().get(0).getRows().get(1).getCell(1).asText()).isEqualTo("1");
 		assertThat(table.getBodies().get(0).getRows().get(1).getCell(2).asText()).isEqualTo("0.95");
+	}
+
+	@Test
+	public void shouldPlaceOrder() throws IOException {
+		HtmlPage page = webClient.getPage("/basket");
+
+		HtmlForm form = page.getFormByName("form-order");
+
+		Map<String, String> inputs = Map.of(
+				"addressLineOne", "line one",
+				"addressLineTwo", "line two",
+				"postCode", "AA1 AA"
+		);
+
+		inputs.forEach((k, v) -> {
+			try {
+				form.getInputByName(k).type(v);
+			}
+			catch (IOException ioException) {
+				ioException.printStackTrace();
+			}
+		});
+
+		HtmlInput submitButton = form.getInputByName("submit-button");
+
+		HtmlPage resultingPage = submitButton.click();
+
+		assertThat(resultingPage.getElementById("message").asText()).contains("Thank you");
 	}
 
 }

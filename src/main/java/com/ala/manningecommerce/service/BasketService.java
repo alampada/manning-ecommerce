@@ -40,4 +40,8 @@ public class BasketService {
 		PastryEntity pastryEntity = Optional.ofNullable(pastryEntityRepository.findByCode(code)).orElseThrow();
 		basket.removeItem(pastryEntity);
 	}
+
+	public void clear() {
+		basket.clear();
+	}
 }

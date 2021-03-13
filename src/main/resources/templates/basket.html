@@ -40,6 +40,25 @@
             </table>
         </div>
 
+        <div id="delivery">
+            <h2>Delivery Address</h2>
+            <form action="/order" id="form-order" method="POST" name="form-order">
+                <div class="form-group">
+                    <label for="formGroupAddressLine1">Address Line 1</label>
+                    <input class="form-control" id="formGroupAddressLine1" name="addressLineOne" type="text">
+                </div>
+                <div class="form-group">
+                    <label for="formGroupAddressLine2">Address Line 2</label>
+                    <input class="form-control" id="formGroupAddressLine2" name="addressLineTwo" type="text">
+                </div>
+                <div class="form-group">
+                    <label for="formGroupPostCode">Post Code</label>
+                    <input class="form-control" id="formGroupPostCode" name="postCode" type="text">
+                </div>
+                <input class="btn btn-primary" name="submit-button" type="submit" value="Place Order">
+            </form>
+        </div>
+
     </div>
 
 
