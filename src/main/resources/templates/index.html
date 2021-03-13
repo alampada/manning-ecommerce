@@ -35,13 +35,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">About</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Services</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Contact</a>
+            <a class="nav-link" href="#">Basket ({{basketSize}} Items)</a>
           </li>
         </ul>
       </div>
@@ -58,9 +52,15 @@
             <div id="card-{{code}}" class="card h-100">
               <div class="card-body">
                 <h4 class="card-title">
-                  <a href="#">{{name}}</a>
+                  {{name}}
                 </h4>
                 <h5>${{price}}</h5>
+              </div>
+              <div class="card-footer">
+                <form name="form-{{code}}" id="form-{{code}}" method="POST" action="/basket">
+                  <input type="hidden" id="input-code-{{code}}" name="code" value="{{code}}">
+                  <input type="submit" name="submit-button" class="btn btn-primary" value="Add to basket">
+                </form>
               </div>
             </div>
           </div>

@@ -5,10 +5,10 @@ import java.io.IOException;
 import com.ala.manningecommerce.support.PostgresqlServerExtension;
 import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.DomElement;
-import com.gargoylesoftware.htmlunit.html.HtmlElement;
 import com.gargoylesoftware.htmlunit.html.HtmlForm;
 import com.gargoylesoftware.htmlunit.html.HtmlInput;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
+import com.gargoylesoftware.htmlunit.html.SubmittableElement;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -45,7 +45,7 @@ public class AddToBasketAcceptanceTest {
 		HtmlPage landingPage = webClient.getPage(baseUrl);
 
 		HtmlForm form = landingPage.getFormByName("form-abcr");
-		DomElement basket = landingPage.getElementById("basket");
+		DomElement basket = landingPage.getElementById("navbarResponsive");
 		assertThat(form).isNotNull();
 		assertThat(basket).isNotNull();
 		assertThat(basket.asText()).contains("Basket (0 Items)");
@@ -54,7 +54,7 @@ public class AddToBasketAcceptanceTest {
 
 		HtmlPage resultingPage = submitButton.click();
 
-		assertThat(resultingPage.getElementById("basket").asText()).contains("Basket (1 Items)");
+		assertThat(resultingPage.getElementById("navbarResponsive").asText()).contains("Basket (1 Items)");
 	}
 }
 

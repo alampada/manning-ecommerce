@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.util.List;
 
 import com.ala.manningecommerce.domain.Pastry;
+import com.ala.manningecommerce.service.BasketService;
 import com.ala.manningecommerce.service.CakeService;
 import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
@@ -26,6 +27,9 @@ class CakeControllerTests {
 
 	@MockBean
 	private CakeService cakeService;
+
+	@MockBean
+	private BasketService basketService;
 
 	@Test
 	public void shouldLoadHomePage() throws Exception {
