@@ -4,8 +4,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
-import com.ala.manningecommerce.PastryMapper;
-import com.ala.manningecommerce.domain.Pastry;
+import com.ala.manningecommerce.controller.resources.Pastry;
+import com.ala.manningecommerce.controller.resources.mappers.PastryMapper;
 import com.ala.manningecommerce.repository.PastryEntityRepository;
 import lombok.AllArgsConstructor;
 

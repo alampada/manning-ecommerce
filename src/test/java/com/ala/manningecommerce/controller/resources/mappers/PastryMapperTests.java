@@ -1,9 +1,9 @@
-package com.ala.manningecommerce;
+package com.ala.manningecommerce.controller.resources.mappers;
 
 import java.math.BigDecimal;
 
-import com.ala.manningecommerce.domain.Pastry;
-import com.ala.manningecommerce.repository.PastryEntity;
+import com.ala.manningecommerce.controller.resources.Pastry;
+import com.ala.manningecommerce.repository.entities.PastryEntity;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;

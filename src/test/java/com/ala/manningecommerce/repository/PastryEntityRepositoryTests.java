@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.List;
 
+import com.ala.manningecommerce.repository.entities.PastryEntity;
 import org.assertj.core.util.IterableUtil;
 import org.junit.jupiter.api.Test;
 

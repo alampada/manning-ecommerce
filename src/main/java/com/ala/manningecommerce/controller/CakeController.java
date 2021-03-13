@@ -2,8 +2,8 @@ package com.ala.manningecommerce.controller;
 
 import java.util.List;
 
-import com.ala.manningecommerce.domain.AddToBasketRequest;
-import com.ala.manningecommerce.domain.Pastry;
+import com.ala.manningecommerce.controller.resources.AddToBasketRequest;
+import com.ala.manningecommerce.controller.resources.Pastry;
 import com.ala.manningecommerce.service.BasketService;
 import com.ala.manningecommerce.service.CakeService;
 import lombok.AllArgsConstructor;
@@ -39,5 +39,12 @@ public class CakeController {
 		log.info("adding to basket " + addToBasketRequest);
 		basketService.addToBasket(addToBasketRequest.getCode());
 		return "redirect:/";
+	}
+
+	@GetMapping("/basket")
+	public String getBasket(Model model) {
+		model.addAttribute("basketSize", basketService.getBasketSize());
+		model.addAttribute("items", basketService.getContents());
+		return "basket";
 	}
 }

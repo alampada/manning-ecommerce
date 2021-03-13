@@ -1,4 +1,4 @@
-package com.ala.manningecommerce.domain;
+package com.ala.manningecommerce.controller.resources;
 
 import lombok.Value;
 
