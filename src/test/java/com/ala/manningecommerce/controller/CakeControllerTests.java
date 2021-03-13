@@ -37,7 +37,6 @@ class CakeControllerTests {
 		HtmlPage page = webClient.getPage("/");
 		assertThat(page.getElementById("card-abcr").asText()).contains("All Butter Croissant");
 		assertThat(page.getElementById("card-ccr").asText()).contains("Chocolate Croissant");
-
 	}
 
 }

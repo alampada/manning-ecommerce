@@ -18,6 +18,23 @@ repositories {
 	mavenCentral()
 }
 
+sourceSets {
+	acceptanceTest {
+		compileClasspath += sourceSets.main.output
+		runtimeClasspath += sourceSets.main.output
+		java {
+			srcDir file('/src/acceptance-test/java')
+		}
+		resources {
+			srcDir file('/src/acceptance-test/resources')
+	}   }
+}
+
+configurations {
+	acceptanceTestImplementation.extendsFrom testImplementation
+	acceptanceTestRuntimeOnly.extendsFrom runtimeOnly
+}
+
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-mustache'
@@ -35,9 +52,20 @@ dependencies {
 
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'net.sourceforge.htmlunit:htmlunit:2.46.0'
-
+	testImplementation "org.testcontainers:postgresql:1.15.2"
 }
 
-test {
+task acceptanceTest(type: Test) {
+	description = 'Runs integration tests.'
+	group = 'verification'
+
+	testClassesDirs = sourceSets.acceptanceTest.output.classesDirs
+	classpath = sourceSets.acceptanceTest.runtimeClasspath
+	shouldRunAfter test
+}
+
+tasks.withType(Test) {
 	useJUnitPlatform()
 }
+
+check.dependsOn(acceptanceTest)
