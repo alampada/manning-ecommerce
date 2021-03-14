@@ -1,0 +1,6 @@
+CREATE TABLE account (
+id BIGINT GENERATED ALWAYS AS IDENTITY,
+email VARCHAR,
+password VARCHAR
+);
+
