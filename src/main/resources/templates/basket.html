@@ -30,6 +30,7 @@
                     <td>{{cost}}</td>
                     <td>
                         <form action="/basket/delete" id="form-{{code}}" method="POST" name="form-{{code}}">
+                            <input name="_csrf" type="hidden" value="{{_csrf.token}}"/>
                             <input id="input-code-{{code}}" name="code" type="hidden" value="{{code}}">
                             <input class="btn btn-danger" name="submit-button" type="submit" value="Remove">
                         </form>
@@ -48,6 +49,7 @@
             </div>
             {{/errors}}
             <form action="/order" id="form-order" method="POST" name="form-order">
+                <input name="_csrf" type="hidden" value="{{_csrf.token}}"/>
                 <div class="form-group">
                     <label for="formGroupAddressLine1">Address Line 1</label>
                     <input class="form-control" id="formGroupAddressLine1" name="addressLineOne" type="text">

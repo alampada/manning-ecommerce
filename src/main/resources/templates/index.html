@@ -23,8 +23,9 @@
               </div>
               <div class="card-footer">
                 <form name="form-{{code}}" id="form-{{code}}" method="POST" action="/basket">
-                  <input type="hidden" id="input-code-{{code}}" name="code" value="{{code}}">
-                  <input type="submit" name="submit-button" class="btn btn-primary" value="Add to basket">
+                    <input name="_csrf" type="hidden" value="{{_csrf.token}}"/>
+                    <input id="input-code-{{code}}" name="code" type="hidden" value="{{code}}">
+                    <input type="submit" name="submit-button" class="btn btn-primary" value="Add to basket">
                 </form>
               </div>
             </div>

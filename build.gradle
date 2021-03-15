@@ -40,6 +40,7 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-mustache'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
+	implementation 'org.springframework.boot:spring-boot-starter-security'
 	implementation 'org.mapstruct:mapstruct:1.4.2.Final'
 	compileOnly 'org.projectlombok:lombok'
 
@@ -54,6 +55,7 @@ dependencies {
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'net.sourceforge.htmlunit:htmlunit:2.46.0'
 	testImplementation "org.testcontainers:postgresql:1.15.2"
+	testImplementation 'org.springframework.security:spring-security-test'
 }
 
 task acceptanceTest(type: Test) {

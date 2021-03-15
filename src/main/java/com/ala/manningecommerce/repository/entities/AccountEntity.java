@@ -16,7 +16,7 @@ import lombok.Value;
 @RequiredArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PRIVATE, force = true)
 @Entity
-@Builder
+@Builder(toBuilder = true)
 @Table(name = "account")
 public class AccountEntity {
 
