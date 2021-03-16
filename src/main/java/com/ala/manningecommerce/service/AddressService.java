@@ -19,4 +19,8 @@ public class AddressService {
 	public AddressEntity addAddress(SignupRequest signupRequest) {
 		return addressEntityRepository.save(addressEntityMapper.map(signupRequest));
 	}
+
+	public AddressEntity getAddress(String email) {
+		return addressEntityRepository.findByEmail(email);
+	}
 }

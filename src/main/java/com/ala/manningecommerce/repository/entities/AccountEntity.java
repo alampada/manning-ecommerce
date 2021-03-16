@@ -14,6 +14,7 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
+import lombok.ToString;
 import lombok.Value;
 
 import org.springframework.security.core.GrantedAuthority;
@@ -34,6 +35,7 @@ public class AccountEntity implements UserDetails {
 	@Column(name = "email")
 	String username;
 
+	@ToString.Exclude
 	String password;
 
 	@Override

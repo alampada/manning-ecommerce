@@ -8,11 +8,15 @@ import com.ala.manningecommerce.controller.resources.AddToBasketRequest;
 import com.ala.manningecommerce.controller.resources.DeleteFromBasketRequest;
 import com.ala.manningecommerce.controller.resources.Pastry;
 import com.ala.manningecommerce.controller.resources.PlaceOrderRequest;
+import com.ala.manningecommerce.repository.entities.AccountEntity;
+import com.ala.manningecommerce.repository.entities.AddressEntity;
+import com.ala.manningecommerce.service.AddressService;
 import com.ala.manningecommerce.service.BasketService;
 import com.ala.manningecommerce.service.CakeService;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -29,6 +33,8 @@ public class CakeController {
 	private final CakeService cakeService;
 
 	private final BasketService basketService;
+
+	private final AddressService addressService;
 
 	@GetMapping
 	public String homepage(Model model) {
@@ -47,7 +53,13 @@ public class CakeController {
 	}
 
 	@GetMapping("/basket")
-	public String getBasket(Model model) {
+	public String getBasket(Model model,
+			@AuthenticationPrincipal AccountEntity accountEntity) {
+		log.info("account entity : " + accountEntity);
+		if (accountEntity != null) {
+			AddressEntity address = addressService.getAddress(accountEntity.getUsername());
+			model.addAttribute("address", address);
+		}
 		model.addAttribute("basketSize", basketService.getBasketSize());
 		model.addAttribute("items", basketService.getContents());
 		return "basket";
