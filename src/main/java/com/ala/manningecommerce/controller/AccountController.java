@@ -5,7 +5,6 @@ import javax.validation.Valid;
 import com.ala.manningecommerce.controller.resources.SignupRequest;
 import com.ala.manningecommerce.service.AccountService;
 import com.ala.manningecommerce.service.AddressService;
-import com.ala.manningecommerce.service.BasketService;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 
@@ -22,8 +21,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 @Log4j2
 public class AccountController {
 
-	private final BasketService basketService;
-
 	private final AccountService accountService;
 
 	private final AddressService addressService;
@@ -31,7 +28,6 @@ public class AccountController {
 
 	@GetMapping("/signup")
 	public String renderSignup(Model model) {
-		model.addAttribute("basketSize", basketService.getBasketSize());
 		return "signup";
 	}
 
@@ -40,7 +36,6 @@ public class AccountController {
 	public String signup(Model model,
 			@Valid SignupRequest signupRequest,
 			Errors errors) {
-		model.addAttribute("basketSize", basketService.getBasketSize());
 		if (errors.hasErrors()) {
 			model.addAttribute("errors", errors.getAllErrors());
 			return "signup";

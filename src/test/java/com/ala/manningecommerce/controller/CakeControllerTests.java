@@ -7,6 +7,7 @@ import java.util.Map;
 
 import com.ala.manningecommerce.controller.resources.BasketEntryResource;
 import com.ala.manningecommerce.controller.resources.Pastry;
+import com.ala.manningecommerce.service.AddressService;
 import com.ala.manningecommerce.service.BasketService;
 import com.ala.manningecommerce.service.CakeService;
 import com.gargoylesoftware.htmlunit.WebClient;
@@ -32,6 +33,9 @@ class CakeControllerTests {
 
 	@MockBean
 	private CakeService cakeService;
+
+	@MockBean
+	private AddressService addressService;
 
 	@MockBean
 	private BasketService basketService;

@@ -39,9 +39,7 @@ public class CakeController {
 	@GetMapping
 	public String homepage(Model model) {
 		List<Pastry> pastryList = cakeService.getPastries();
-		int basketSize = basketService.getBasketSize();
 		model.addAttribute("pastries", pastryList);
-		model.addAttribute("basketSize", basketSize);
 		return "index";
 	}
 
@@ -60,7 +58,6 @@ public class CakeController {
 			AddressEntity address = addressService.getAddress(accountEntity.getUsername());
 			model.addAttribute("address", address);
 		}
-		model.addAttribute("basketSize", basketService.getBasketSize());
 		model.addAttribute("items", basketService.getContents());
 		return "basket";
 	}
@@ -69,7 +66,6 @@ public class CakeController {
 	public String deleteFromBasket(DeleteFromBasketRequest deleteFromBasketRequest,
 			Model model) {
 		basketService.removeItem(deleteFromBasketRequest.getCode());
-		model.addAttribute("basketSize", basketService.getBasketSize());
 		model.addAttribute("items", basketService.getContents());
 		return "redirect:/basket";
 	}
@@ -80,13 +76,11 @@ public class CakeController {
 			Errors errors) {
 		if (errors.hasErrors()) {
 			model.addAttribute("errors", errors.getAllErrors());
-			model.addAttribute("basketSize", basketService.getBasketSize());
 			model.addAttribute("items", basketService.getContents());
 			return "basket";
 		}
 		log.info("placing order: " + request);
 		basketService.clear();
-		model.addAttribute("basketSize", basketService.getBasketSize());
 		return "order";
 	}
 }
