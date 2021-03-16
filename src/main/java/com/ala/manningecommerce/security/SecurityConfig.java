@@ -1,4 +1,4 @@
-package com.ala.manningecommerce.configuration;
+package com.ala.manningecommerce.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
